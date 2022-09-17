@@ -8,14 +8,14 @@ services:
 script:
   - docker --version # smoke test
   - docker-compose -f docker-compose-build.yaml build --parallel
-  - docker tag reverseproxy abukavictor/reverseproxy
-  - docker tag udagram-frontend abukavictor/udagram-frontend
-  - docker tag udagram-api-feed abukavictor/udagram-api-feed
-  - docker tag udagram-api-user abukavictor/udagram-api-user
+  - docker tag reverseproxy abukavictor/reverseproxy:v1
+  - docker tag udagram-frontend abukavictor/udagram-frontend:v1
+  - docker tag udagram-api-feed abukavictor/udagram-api-feed:v1
+  - docker tag udagram-api-user abukavictor/udagram-api-user:v1
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push abukavictor/reverseproxy
-  - docker push abukavictor/udagram-frontend
-  - docker push abukavictor/udagram-api-feed
-  - docker push abukavictor/udagram-api-user
+  - docker push abukavictor/reverseproxy:v1
+  - docker push abukavictor/udagram-frontend:v1
+  - docker push abukavictor/udagram-api-feed:v1
+  - docker push abukavictor/udagram-api-user:v1
