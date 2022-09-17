@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - 14.0.0
+
+services:
+  - docker
+
+script:
+  - docker --version # smoke test
+  - docker-compose -f docker-compose-build.yaml build --parallel
+  - docker tag reverseproxy abukavictor/reverseproxy
+  - docker tag udagram-frontend abukavictor/udagram-frontend
+  - docker tag udagram-api-feed abukavictor/udagram-api-feed
+  - docker tag udagram-api-user abukavictor/udagram-api-user
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push abukavictor/reverseproxy
+  - docker push abukavictor/udagram-frontend
+  - docker push abukavictor/udagram-api-feed
+  - docker push abukavictor/udagram-api-user
