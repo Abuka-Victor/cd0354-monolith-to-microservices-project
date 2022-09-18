@@ -16,6 +16,6 @@ script:
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push abukavictor/reverseproxy:v1
-  - docker push abukavictor/udagram-frontend:v1
+  - docker push abukavictor/udagram-frontend:v6
   - docker push abukavictor/udagram-api-feed:v1
   - docker push abukavictor/udagram-api-user:v1
